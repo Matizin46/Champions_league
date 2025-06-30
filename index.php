@@ -1,41 +1,98 @@
-<?php include 'db.php'; ?>
+<?php
+include "cabecalho.php";
+include "banner.php";
 
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <title>Papelaria Criativa</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
- 
-<body>
- 
-  <div class="container mt-4">
-    <h1 class="text-center mb-4">Papelaria Criativa</h1>
- 
- 
-    <div id="carouselExample" class="carousel slide mb-5" data-bs-ride="carousel">
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="https://akm-img-a-in.tosshub.com/indiatoday/images/story/202207/ronaldounitedatleticotransfer_1200x768.png?VersionId=D6fapmJ8W5Qj6z1vpqZusEu1gL.H_79l" class="d-block w-100" alt="Banner 1">
-        </div>
-        <div class="carousel-item">
-          <img src="https://assets.goal.com/images/v3/bltec70bd945d5375a2/GOAL%20-%20Blank%20WEB%20-%20Facebook%20(2).jpg?auto=webp&format=pjpg&width=3840&quality=60">
-        </div>
-        <div class="carousel-item">
-          <img src="https://e0.365dm.com/22/12/2048x1152/skysports-lionel-messi-argentina_5997509.png?20221215150028" class="d-block w-100" alt="Banner 3">
-        </div>
-      </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-        <span class="carousel-control-next-icon"></span>
-      </button>
+?>
+<div class="container">
+    <h2 class="display-5">Melhores avaliações</h2>
+
+    <div class="row mb-5">
+        <?php
+
+        include "conexao.php";
+
+        $sql = "select * from filmes order by avaliacao desc limit 4";
+        // trazendo só os mais avaliados e limitando para 4 filmes
+        
+        $resultado = mysqli_query($conexao, $sql);
+
+        while ($linha = mysqli_fetch_assoc($resultado)) {
+        ?>
+            <div class="col-md-3 mb-4">
+                <div style="width: 18rem;">
+                    <div class="card" style="width: 18rem;">
+                        <img src="<?= $linha['foto']; ?>" class="card-img-top" style="width:100%; height:500px; object-fit: cover;">
+                        <div class="card-body">
+                            <h3 class="card-title">
+                                <?= mb_strimwidth($linha['filmes'], 0, 18, '...') ?>
+                            </h3>
+                            <p class="card-text">⭐<?= $linha['avaliacao']; ?>/10</p>
+                            <p class="card-text" style="height: 100px;">
+                                <?= mb_strimwidth($linha['historia'], 0, 100, '...') ?>
+                                <!-- mb_strimwidth limita o tanto de caracteres -->
+                            </p>
+                            <span class="card-text"><?= $linha['categoria'] . "<br>" ?></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php
+        }
+        // echo "parou aqui";
+        // echo "<pre>";
+        // print_r($resultado);
+        // exit();
+        // echo "nem chegou aqui";
+        mysqli_close($conexao);
+        // Conexão fechada
+        ?>
+
+
     </div>
- 
 
- 
-  </body>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</html>
+    <div class="row mt-5">
+        <div class="col-8">
+            <img src="img/banner.jpg" class="img-fluid">
+        </div>
+        <div class="col-4 align-content-center">
+            <p class="fs-5 fw-light">Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis suscipit, quibusdam dicta fugit nostrum voluptatem dolor dolorum sint deleniti, itaque ex iusto culpa recusandae velit sapiente. Explicabo nemo necessitatibus non.</p>
+            <a href="https://youtube.com" class="btn btn-success btn-lg">ASSISTA AO TRAILER AGORA</a>
+        </div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-4 align-content-center">
+            <p class="fs-5 fw-light">Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis suscipit, quibusdam dicta fugit nostrum voluptatem dolor dolorum sint deleniti, itaque ex iusto culpa recusandae velit sapiente. Explicabo nemo necessitatibus non.</p>
+            <a href="https://youtube.com" class="btn btn-success btn-lg">ASSISTA AO TRAILER AGORA</a>
+        </div>
+
+        <div class="col-8">
+            <img src="img/banner.jpg" class="img-fluid">
+        </div>
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-warning btn-lg mt-5 fs-5 fw-bold text-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Precisa de ajuda? Clique aqui!
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Ajuda</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Entre em contato através dos nossos canais de comunicação:</p>
+                        <p>E-mail: filme@filme.com.br <br> Whatsapp: (11)99999-9999 <br><a href="contato.php">Formulário de contato</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<?php
+include "rodape.php"
+?>

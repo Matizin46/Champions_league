@@ -1,1 +1,0 @@
-// JavaScript para funcionalidades extras (banner, etc.)
