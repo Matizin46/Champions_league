@@ -5,15 +5,20 @@ $id = $_GET['id'];
 // 2- Conexão com o BD
 include "conexao.php";
 // 3- Montagem do SQL
-$sql = "select * from filmes where id = $id";
+$sql = "select * from jogadores_champions where id = $id";
 // 4- Execução do SQl
 $resultado = mysqli_query($conexao, $sql);
 // 5- Definição das variaveis do filme
-$titulo = "";
-$historia = "";
-$categoria = "";
-$avaliacao = "";
+$nome = "";
+$nacionalidade = "";
+$idade = "";
+$posicao = "";
+$time_atual = "";
+$numero_camisa = "";
+$gols_champios = "";
+$assistencias = "";
 $foto = "";
+$historia = "";
 // 6- Laço com as informações do filme
 while($linha = mysqli_fetch_assoc($resultado)){
     $titulo = $linha["filmes"];
