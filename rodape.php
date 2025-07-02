@@ -1,5 +1,6 @@
 <footer class="rodape">
     <hr>
+    <p class="rodape">Champions League</p>
     <img src="imagens/jogador-de-futebol.png">
     <small><?php echo date("Y"); ?></small>
 </footer>
